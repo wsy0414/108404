@@ -13,11 +13,13 @@ import org.w3c.dom.Text;
 
 class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context mContext;
-    String[] data;
+    public String[] data;
     public MasterAdapter(Context context, String[] data){
         this.mContext = context;
         this.data = data;
     }
+
+
 
     @NonNull
     @Override
@@ -51,6 +53,7 @@ class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //        if (viewHolder instanceof textViewHolder){
 //            ((textViewHolder) viewHolder).tv1.setText(data[i]);
 //        }
+
         if (i == 1){
             ((imgViewHolder) viewHolder).iv1.setImageResource(R.drawable.man);
         }else if (i == 0){

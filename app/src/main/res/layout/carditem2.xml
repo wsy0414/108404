@@ -7,14 +7,15 @@
     android:layout_height="176dp"
     android:layout_margin="6dp"
     android:padding="6dp"
-    app:cardBackgroundColor="#ffdddddd"
+    app:cardBackgroundColor="#89DACACA"
     app:cardCornerRadius="28dp"
     app:cardElevation="6dp">
 
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:backgroundTint="@color/cardview_light_background">
 
         <TextView
             android:id="@+id/topicTextView"

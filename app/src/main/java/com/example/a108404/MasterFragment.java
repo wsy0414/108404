@@ -23,6 +23,8 @@ import android.widget.TextView;
 public class MasterFragment extends Fragment {
     TextView locatText;
     RecyclerView myRecyclerView;
+    String[] test = {"中正市", "天氣", "晴時多雲", "垃圾車", "再30分鐘即將到達"};
+    //public MasterAdapter masterAdapter = new MasterAdapter(getActivity(), test);
     // TODO: Rename parameter arguments, choose names that matc
 
     // TODO: Rename and change types of parameters
@@ -30,7 +32,7 @@ public class MasterFragment extends Fragment {
     private String mParam2;
     String[] location;
     int id;
-    String[] test = {"中正市", "天氣", "晴時多雲", "垃圾車", "再30分鐘即將到達"};
+
 
 
     private OnFragmentInteractionListener mListener;
@@ -75,9 +77,11 @@ public class MasterFragment extends Fragment {
         locatText = (TextView)view.findViewById(R.id.locatText);
         myRecyclerView = (RecyclerView)view.findViewById(R.id.myRecycle);
         locatText.setText(location[id]);
+
         MasterAdapter masterAdapter = new MasterAdapter(getActivity(), test);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myRecyclerView.setAdapter(masterAdapter);
+
         return view;
     }
 

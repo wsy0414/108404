@@ -11,8 +11,10 @@
         android:id="@+id/myRecycle"
         android:layout_width="400dp"
         android:layout_height="418dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/locatText" />
 
@@ -21,7 +23,7 @@
         android:layout_width="195dp"
         android:layout_height="58dp"
         android:layout_marginStart="96dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="106dp"
         android:text="台北市"
         android:textAlignment="center"
         android:textSize="36sp"

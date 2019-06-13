@@ -3,6 +3,9 @@ package com.example.a108404;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.ViewGroup;
 
 class MasterFraAdapter extends FragmentPagerAdapter {
     private String[] aa;
@@ -28,6 +31,28 @@ class MasterFraAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return aa.length;
+        return 1;
     }
+
+//    @Override
+//    public void destroyItem(ViewGroup container, int position, Object object) {
+//        ((ViewPager)container).removeView( (View) object);
+//    }
+//
+//    @Override
+//    public int getItemPosition(Object object) {
+//        return POSITION_NONE;
+//    }
+//
+//    @Override
+//    public boolean isViewFromObject(View view, Object object) {
+//        return view== (View) object;
+//    }
+
+//    @Override
+//    public Object instantiateItem(ViewGroup container, int position) {
+//        container.addView(container) ;
+//        return container;
+//    }
+
 }
