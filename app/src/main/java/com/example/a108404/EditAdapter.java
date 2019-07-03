@@ -39,11 +39,11 @@ class EditAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv1;
-        Switch sw1;
+        //Switch sw1;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv1 = (TextView)itemView.findViewById(R.id.textView2);
-            sw1 = (Switch)itemView.findViewById(R.id.switch1);
+            //sw1 = (Switch)itemView.findViewById(R.id.switch1);
 
         }
     }

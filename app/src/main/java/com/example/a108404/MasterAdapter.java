@@ -55,7 +55,7 @@ class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //        }
 
         if (i == 1){
-            ((imgViewHolder) viewHolder).iv1.setImageResource(R.drawable.man);
+            ((imgViewHolder) viewHolder).iv1.setImageResource(R.drawable.sun);
         }else if (i == 0){
             ((textViewHolder) viewHolder).tv1.setText(data[1]);
             ((textViewHolder) viewHolder).tv2.setText(data[2]);
