@@ -14,59 +14,83 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
 class SetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements IItemTouchHelperAdapter {
-    String[] setData = {"天氣", "垃圾車", "病毒", "油價"};
+    //String[] setData = {"天氣", "垃圾車", "病毒", "油價"};
     Context mContext;
     OnStartDragListener mDragListener;
+    ArrayList<ToolList> usingData;
+    ArrayList<ToolList> nonData;
 
-    public SetAdapter(Context context, OnStartDragListener mDragListener){
+
+    public SetAdapter(Context context, OnStartDragListener mDragListener, ArrayList<ArrayList> toolData){
         this.mContext = context;
         this.mDragListener = mDragListener;
-
+        this.usingData = toolData.get(0);
+        this.nonData = toolData.get(1);
     }
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-
+        if(i == 0) {
             View v = LayoutInflater.from(mContext)
                     .inflate(R.layout.edititem, viewGroup, false);
             addViewHolder vh = new addViewHolder(v);
             return vh;
+        }else{
+            View v = LayoutInflater.from(mContext)
+                    .inflate(R.layout.item, viewGroup, false);
+            textViewHolder vh = new textViewHolder(v);
+            return vh;
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, int i) {
-
-        ((addViewHolder) viewHolder).tv1.setText(setData[i]);
-        ((addViewHolder)viewHolder).moveBtn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    if (mDragListener != null) {
-                        Log.d("touch", "ok");
-                        mDragListener.onStartDrag(viewHolder);
-                        Log.d("touch", "ok");
+        if(viewHolder instanceof addViewHolder) {
+            if(i <= usingData.size()) {
+                ((addViewHolder) viewHolder).tv1.setText(usingData.get(i - 1).getToolName());
+            }else{
+                Log.d("onBindPosition", String.valueOf(i));
+                ((addViewHolder) viewHolder).tv1.setText((CharSequence) nonData.get(i - 2 - usingData.size()).getToolName());
+            }
+            try {
+                ((addViewHolder) viewHolder).moveBtn.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                            if (mDragListener != null) {
+                                Log.d("touch", "ok");
+                                mDragListener.onStartDrag(viewHolder);
+                                Log.d("touch", "ok");
+                            }
+                        }
+                        return false;
                     }
+                });
+            }catch (Exception e){
+                Log.d("aa", "aa");
+            }
+            ((addViewHolder) viewHolder).dltBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("delete", "ok");
+                    onItemDismiss(viewHolder.getAdapterPosition());
                 }
-                return false;
-            }
-        });
-        ((addViewHolder) viewHolder).dltBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("delete", "ok");
-                onItemDismiss(viewHolder.getAdapterPosition());
-            }
-        });
+            });
+        }else{
+            ((textViewHolder) viewHolder).tv1.setText("工具");
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        return setData.length;
+        return usingData.size() + nonData.size()+2;
     }
 
 //    public void moveItem(int fromPos, int toPos) {
@@ -76,36 +100,28 @@ class SetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implement
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-        Collections.swap(Arrays.asList(setData), fromPosition, toPosition);
+        //Collections.swap(usingData, fromPosition, toPosition);
+
         notifyItemMoved(fromPosition, toPosition);
     }
 
     @Override
     public void onItemDismiss(int position) {
-        //setData.remove(position);
+        Log.d("position", String.valueOf(position));
+        nonData.add(usingData.get(position));
+        usingData.remove(position);
+
         notifyItemRemoved(position);
     }
 
-//    public void remove(int position) {
-//        //mTitle.remove(position);
-//        notifyItemRemoved(position);
-//    }
-//
-//    public void add(String text, int position) {
-//        //mTitle.add(position, text);
-//        notifyItemInserted(position);
-//    }
-
-//    @Override
-//    public int getItemViewType(int position){
-//        if (position != setData.length){
-//           return 0;
-//        }else{
-//            return 1;
-//        }
-//    }
-
-
+    @Override
+    public int getItemViewType(int position){
+        if (position == 0 || position == usingData.size() + 1){
+           return 1;
+        }else{
+            return 0;
+        }
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -128,16 +144,23 @@ class SetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implement
         public Button btn1;
         public Button moveBtn;
         public Button dltBtn;
+        public View mcontentView;
         private Boolean btnState = true;
-        public addViewHolder(@NonNull View itemView) {
+        public addViewHolder(@NonNull final View itemView) {
             super(itemView);
+            mcontentView = itemView.findViewById(R.id.edititem);
             tv1 = (TextView)itemView.findViewById(R.id.textView2);
             btn1 = (Button)itemView.findViewById(R.id.editBtn);
+
+
+            moveBtn = (Button)itemView.findViewById(R.id.moveBtn);
+            dltBtn = (Button)itemView.findViewById(R.id.dltBtn);
+
             btn1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // 按下Button要做的事
-                    if(btnState){
+                     if(btnState){
                         btnState = false;
                         btn1.setActivated(btnState);
                     }else{
@@ -146,9 +169,6 @@ class SetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implement
                     }
                 }
             });
-
-            moveBtn = (Button)itemView.findViewById(R.id.moveBtn);
-            dltBtn = (Button)itemView.findViewById(R.id.dltBtn);
 
 
         }

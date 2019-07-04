@@ -11,18 +11,63 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.maps.model.TileOverlayOptions;
+import com.loopeer.itemtouchhelperextension.ItemTouchHelperExtension;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class SettingActivity extends AppCompatActivity implements OnStartDragListener {
     Toolbar toolbar;
     RecyclerView recyclerView;
     SetAdapter setAdapter;
-    ItemTouchHelper mItemTouchHelper;
+    //ItemTouchHelper mItemTouchHelper;
+    public ItemTouchHelperExtension mItemTouchHelper;
+    public ItemTouchHelperExtension.Callback mCallback;
     //IItemTouchHelperAdapter adpater;
+    ArrayList<ToolList> usinglist = new ArrayList<ToolList>();
+    ArrayList<ToolList> nonList = new ArrayList<ToolList>();
+    ArrayList<ArrayList> toollist = new ArrayList<ArrayList>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        initData();
+
+        initToolBar();
+
+        initView();
+    }
+
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+        Log.d("startDrag", "ok");
+        mItemTouchHelper.startDrag(viewHolder);
+        Log.d("startDrag", "ok");
+    }
+
+    @Override
+    public void onStartSwip(RecyclerView.ViewHolder viewHolder){
+        Log.d("startSwip", "ok");
+        mItemTouchHelper.startSwipe(viewHolder);
+    }
+
+    //資料初始化
+    public void initData(){
+        ToolList toolWeather = new ToolList(true, "天氣");
+        ToolList toolAir = new ToolList(false, "空氣品質");
+        ToolList toolOil = new ToolList(true, "油價");
+        usinglist.add(toolWeather);
+        nonList.add(toolAir);
+        usinglist.add(toolOil);
+
+        toollist.add(usinglist);
+        toollist.add(nonList);
+    }
+
+    //取消toolbar並自定義
+    public void initToolBar(){
         setContentView(R.layout.activity_setting);
         toolbar = (Toolbar)findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
@@ -31,45 +76,25 @@ public class SettingActivity extends AppCompatActivity implements OnStartDragLis
         toolbar.setNavigationOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(SettingActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
+    }
 
+    //初始化畫面RecyclerView
+    public void initView(){
         recyclerView = (RecyclerView)findViewById(R.id.setrecycler);
-        setAdapter = new SetAdapter(this, this);
+        setAdapter = new SetAdapter(this, this, toollist);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Log.d("adapter", "ok");
         recyclerView.setAdapter(setAdapter);
-        mItemTouchHelper = new ItemTouchHelper(new MyItemTouchHelperCallback(setAdapter));
+        // mItemTouchHelper = new ItemTouchHelper(new MyItemTouchHelperCallback(setAdapter));
+        //mItemTouchHelper.attachToRecyclerView(recyclerView);
+        mCallback = new MyItemTouchHelperCallback(setAdapter);
+        mItemTouchHelper = new ItemTouchHelperExtension(mCallback);
         mItemTouchHelper.attachToRecyclerView(recyclerView);
-
-//        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
-//                ItemTouchHelper.UP | ItemTouchHelper.DOWN,
-//                ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
-//            @Override
-//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
-//                //  上下拖移callback
-//                final int fromPos = viewHolder.getAdapterPosition();
-//                final int toPos = viewHolder1.getAdapterPosition(y);
-//                // move item in `fromPos` to `toPos` in adapter.
-//                setAdapter.notifyItemMoved(fromPos, toPos);
-//                return true;
-//            }
-//
-//            @Override
-//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//                // 左右滑動callback
-//
-//            }
-//        }).attachToRecyclerView(recyclerView);
-    }
-
-    @Override
-    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
-        Log.d("startDrag", "ok");
-        mItemTouchHelper.startDrag(viewHolder);
-        Log.d("startDrag", "ok");
     }
 }
 

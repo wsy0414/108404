@@ -9,4 +9,5 @@ public interface OnStartDragListener {
      * @param viewHolder The holder of view to drag
      */
     void onStartDrag(RecyclerView.ViewHolder viewHolder);
+    void onStartSwip(RecyclerView.ViewHolder viewHolder);
 }
