@@ -9,12 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import java.util.ArrayList;
 
 class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context mContext;
-    public String[] data;
-    public MasterAdapter(Context context, String[] data){
+    //public String[] data;
+    ArrayList<ToolList> data = new ArrayList<ToolList>();
+    public MasterAdapter(Context context, ArrayList<ToolList> data){
         this.mContext = context;
         this.data = data;
     }
@@ -35,17 +36,21 @@ class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //            masterViewHolder vh = new masterViewHolder(v);
 //            return vh;
 //        }
-        if (i == 1){
-            View v = LayoutInflater.from(mContext)
-                    .inflate(R.layout.carditem, viewGroup, false);
-            imgViewHolder vh = new imgViewHolder(v);
-            return vh;
-        }else{
-            View v = LayoutInflater.from(mContext)
-                    .inflate(R.layout.carditem2, viewGroup, false);
-            textViewHolder vh = new textViewHolder(v);
-            return vh;
-        }
+//        if (i == 1){
+//            View v = LayoutInflater.from(mContext)
+//                    .inflate(R.layout.carditem, viewGroup, false);
+//            imgViewHolder vh = new imgViewHolder(v);
+//            return vh;
+//        }else{
+//            View v = LayoutInflater.from(mContext)
+//                    .inflate(R.layout.carditem2, viewGroup, false);
+//            textViewHolder vh = new textViewHolder(v);
+//            return vh;
+//        }
+        View v = LayoutInflater.from(mContext)
+                .inflate(R.layout.carditem2, viewGroup, false);
+        textViewHolder vh = new textViewHolder(v);
+        return vh;
     }
 
     @Override
@@ -54,33 +59,35 @@ class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //            ((textViewHolder) viewHolder).tv1.setText(data[i]);
 //        }
 
-        if (i == 1){
-            ((imgViewHolder) viewHolder).iv1.setImageResource(R.drawable.sun);
-        }else if (i == 0){
-            ((textViewHolder) viewHolder).tv1.setText(data[1]);
-            ((textViewHolder) viewHolder).tv2.setText(data[2]);
-        }else{
-            ((textViewHolder) viewHolder).tv1.setText(data[3]);
-            ((textViewHolder) viewHolder).tv2.setText(data[4]);
-        }
+        ((textViewHolder) viewHolder).tv1.setText(data.get(i).getToolName());
+
+//        if (i == 1){
+//            ((imgViewHolder) viewHolder).iv1.setImageResource(R.drawable.sun);
+//        }else if (i == 0){
+//            ((textViewHolder) viewHolder).tv1.setText(data[1]);
+//            //((textViewHolder) viewHolder).tv2.setText(data[2]);
+//        }else{
+//            ((textViewHolder) viewHolder).tv1.setText(data[3]);
+//            //((textViewHolder) viewHolder).tv2.setText(data[4]);
+//        }
     }
 
 
     @Override
     public int getItemCount() {
-        return 3;
+        return data.size();
     }
 
-    @Override
-    public int getItemViewType(int position){
-        if (position == 0){
-            return 0;
-        }else if (position == 1){
-            return 1;
-        }else{
-            return 2;
-        }
-    }
+//    @Override
+//    public int getItemViewType(int position){
+//        if (position == 0){
+//            return 0;
+//        }else if (position == 1){
+//            return 1;
+//        }else{
+//            return 2;
+//        }
+//    }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -111,7 +118,7 @@ class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public textViewHolder(@NonNull View itemView) {
             super(itemView);
             tv1 = (TextView)itemView.findViewById(R.id.topicTextView);
-            tv2 = (TextView)itemView.findViewById(R.id.aaTextView);
+            tv2 = (TextView)itemView.findViewById(R.id.textView);
         }
     }
 }

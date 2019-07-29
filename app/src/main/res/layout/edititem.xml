@@ -12,43 +12,28 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/editBtn"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="7dp"
-            android:layout_marginTop="38dp"
-            android:background="@drawable/shape_ovel"
-            android:backgroundTint="@drawable/click_change_color"
-            android:text="+" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="213dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="41dp"
-            android:text="TextView" />
-
-        <Button
             android:id="@+id/moveBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"
             android:layout_marginEnd="26dp"
             android:text="≡" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="148dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="41dp"
+            android:text="TextView" />
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="78dp"
+            android:layout_weight="1"
+            android:text="Switch" />
+
     </LinearLayout>
 
-    <FrameLayout
-    android:layout_width="100dp"
-    android:layout_height="match_parent"
-    android:layout_marginRight="4dp"
-    android:layout_marginBottom="4dp"
-    android:background="#f33213">
-
-        <Button
-            android:id="@+id/dltBtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="刪除" />
-</FrameLayout>
 </LinearLayout>

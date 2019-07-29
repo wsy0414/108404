@@ -7,9 +7,11 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 class MasterFraAdapter extends FragmentPagerAdapter {
-    private String[] aa;
-    public MasterFraAdapter(FragmentManager fm, String[] aa) {
+    private ArrayList<ToolList> aa = new ArrayList<ToolList>();
+    public MasterFraAdapter(FragmentManager fm, ArrayList<ToolList> aa) {
         super(fm);
         this.aa = aa;
     }

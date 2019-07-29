@@ -12,6 +12,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -50,13 +52,15 @@ class SetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implement
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int i) {
         if(viewHolder instanceof addViewHolder) {
             if(i <= usingData.size()) {
                 ((addViewHolder) viewHolder).tv1.setText(usingData.get(i - 1).getToolName());
+                ((addViewHolder) viewHolder).sw1.setChecked(usingData.get(i - 1).getUsing());
             }else{
                 Log.d("onBindPosition", String.valueOf(i));
                 ((addViewHolder) viewHolder).tv1.setText((CharSequence) nonData.get(i - 2 - usingData.size()).getToolName());
+                ((addViewHolder) viewHolder).sw1.setChecked(nonData.get(i - 2 - usingData.size()).getUsing());
             }
             try {
                 ((addViewHolder) viewHolder).moveBtn.setOnTouchListener(new View.OnTouchListener() {
@@ -75,11 +79,21 @@ class SetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implement
             }catch (Exception e){
                 Log.d("aa", "aa");
             }
-            ((addViewHolder) viewHolder).dltBtn.setOnClickListener(new View.OnClickListener() {
+            ((addViewHolder) viewHolder).sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
-                public void onClick(View view) {
-                    Log.d("delete", "ok");
-                    onItemDismiss(viewHolder.getAdapterPosition());
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        int index = i - 2 - usingData.size();
+                        usingData.add(nonData.get(index));
+                        nonData.remove(index);
+                        usingData.get(usingData.size()-1).setUsing(isChecked);
+                    }else{
+                        int index = i - 1;
+                        nonData.add(usingData.get(index));
+                        usingData.remove(index);
+                        nonData.get(nonData.size()-1).setUsing(isChecked);
+                    }
+
                 }
             });
         }else{
@@ -114,6 +128,8 @@ class SetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implement
         notifyItemRemoved(position);
     }
 
+
+
     @Override
     public int getItemViewType(int position){
         if (position == 0 || position == usingData.size() + 1){
@@ -141,36 +157,15 @@ class SetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implement
 
     public class addViewHolder extends RecyclerView.ViewHolder implements SlideSwapAction {
         public TextView tv1;
-        public Button btn1;
         public Button moveBtn;
-        public Button dltBtn;
         public View mcontentView;
-        private Boolean btnState = true;
+        public Switch sw1;
         public addViewHolder(@NonNull final View itemView) {
             super(itemView);
             mcontentView = itemView.findViewById(R.id.edititem);
             tv1 = (TextView)itemView.findViewById(R.id.textView2);
-            btn1 = (Button)itemView.findViewById(R.id.editBtn);
-
-
             moveBtn = (Button)itemView.findViewById(R.id.moveBtn);
-            dltBtn = (Button)itemView.findViewById(R.id.dltBtn);
-
-            btn1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // 按下Button要做的事
-                     if(btnState){
-                        btnState = false;
-                        btn1.setActivated(btnState);
-                    }else{
-                        btnState = true;
-                        btn1.setActivated(btnState);
-                    }
-                }
-            });
-
-
+            sw1 = (Switch)itemView.findViewById(R.id.switch1);
         }
 
         @Override

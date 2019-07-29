@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,10 +52,11 @@ public class MasterFragment extends Fragment {
      * @return A new instance of fragment MasterFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MasterFragment newInstance(String[] param1, int i) {
+    public static MasterFragment newInstance(ArrayList<ToolList> param1, int i) {
         MasterFragment fragment = new MasterFragment();
         Bundle args = new Bundle();
-        args.putStringArray("location", param1);
+        //args.putStringArray("location", param1);
+        //args.putParcelableArrayList("location", param1);
         args.putInt("id", i);
         fragment.setArguments(args);
         return fragment;
@@ -78,9 +81,9 @@ public class MasterFragment extends Fragment {
         myRecyclerView = (RecyclerView)view.findViewById(R.id.myRecycle);
         locatText.setText(location[id]);
 
-        MasterAdapter masterAdapter = new MasterAdapter(getActivity(), test);
+        //MasterAdapter masterAdapter = new MasterAdapter(getActivity(), test);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        myRecyclerView.setAdapter(masterAdapter);
+        //myRecyclerView.setAdapter(masterAdapter);
 
         return view;
     }
