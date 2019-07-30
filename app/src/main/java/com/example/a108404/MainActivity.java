@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -32,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements setData {
     public FragmentManager fragmentManager = getSupportFragmentManager();
     ViewPager myViewPager;
     Toolbar toolbar;
@@ -41,14 +42,18 @@ public class MainActivity extends AppCompatActivity {
     //public String nowLocation;
     public String[] loc = {"中正市", "天氣", "晴時多雲", "垃圾車", "再30分鐘即將到達"};
 
+    ArrayList test = new ArrayList();
+    Oil oilData;
+
     ArrayList<ToolList> usinglist = new ArrayList<ToolList>();
     ArrayList<ToolList> nonList = new ArrayList<ToolList>();
     ArrayList<ToolList> toollist = new ArrayList<ToolList>();
     Gson gson = new GsonBuilder().create();
     TextView loctext;
     RecyclerView masterrecview;
-    String[] test = {"中正市", "天氣", "晴時多雲", "垃圾車", "再30分鐘即將到達"};
+    //String[] test = {"中正市", "天氣", "晴時多雲", "垃圾車", "再30分鐘即將到達"};
     MyAPIService myAPIService;
+    MasterAdapter masterAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,42 +102,57 @@ public class MainActivity extends AppCompatActivity {
         myAsyncTask.execute(this);
        // myViewPager = (ViewPager)findViewById(R.id.myViewPager);
 
-        MasterAdapter masterAdapter = new MasterAdapter(this, usinglist);
-        masterrecview.setLayoutManager(new LinearLayoutManager(this));
+        GridLayoutManager manager = new GridLayoutManager(this, 2);
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position > 1){
+                    return 2;
+                }else{
+                    return 1;
+                }
+            }
+        });
+        masterAdapter = new MasterAdapter(this, usinglist);
+        masterrecview.setLayoutManager(manager);
         masterrecview.setAdapter(masterAdapter);
 //        masterFraAdapter = new MasterFraAdapter(fragmentManager, toollist);
 //        myViewPager.setAdapter(masterFraAdapter);
 
 //-------------------連線測試-------------------------------------------------------------------------------------
         // 2. 透過RetrofitManager取得連線基底
-//        myAPIService = RetrofitManager.getInstance().getAPI();
-//
-//        SetAddress setAddress = new SetAddress();
-//        setAddress.setLat("26.982628");
-//        setAddress.setLon("121.558885");
-//
-//        // 3. 建立連線的Call，此處設置call為myAPIService中的getAlbums()連線
-//        Call<Oil> call = myAPIService.postAqi(setAddress);
-//
-//        // 4. 執行call
-//        call.enqueue(new Callback<Oil>() {
-//            @Override
-//            public void onResponse(Call<Oil> call, Response<Oil> response) {
-//                // 連線成功
-//                // 回傳的資料已轉成Albums物件，可直接用get方法取得特定欄位
-//
-//                if (response != null) {
-//                    String title = response.body().getOil92();
-//                    Log.d("title", title);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Oil> call, Throwable t) {
-//                // 連線失敗
-//            }
-//        });
+        myAPIService = RetrofitManager.getInstance().getAPI();
 
+        // 3. 建立連線的Call，此處設置call為myAPIService中的getAlbums()連線
+        Call<Oil> call = myAPIService.postOil();
+
+        // 4. 執行call
+        call.enqueue(new Callback<Oil>() {
+            @Override
+            public void onResponse(Call<Oil> call, Response<Oil> response) {
+                // 連線成功
+                // 回傳的資料已轉成Albums物件，可直接用get方法取得特定欄位
+
+                if (response != null) {
+                    setOilData(response.body());
+                    String title = response.body().getOil92();
+                    Log.d("title", title);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Oil> call, Throwable t) {
+                // 連線失敗
+            }
+        });
+
+    }
+
+    @Override
+    public void setOilData(Oil oilData) {
+        //this.oilData = oilData;
+        masterAdapter.oilData = oilData;
+        masterAdapter.notifyDataSetChanged();
     }
 
     class MyAsyncTask extends AsyncTask<Context, Integer, String> {

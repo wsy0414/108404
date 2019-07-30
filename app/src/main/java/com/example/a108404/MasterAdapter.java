@@ -31,18 +31,23 @@ class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implem
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-//        if (i == 0){
-//            View v = LayoutInflater.from(mContext)
-//                    .inflate(R.layout.carditem, viewGroup, false);
-//            imgViewHolder vh = new imgViewHolder(v);
-//            return vh;
-//        }else{
-//            View v = LayoutInflater.from(mContext)
-//                    .inflate(R.layout.item, viewGroup, false);
-//            masterViewHolder vh = new masterViewHolder(v);
-//            return vh;
-//        }
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {        //i=viewType
+        if (i == 0){
+            View v = LayoutInflater.from(mContext)
+                    .inflate(R.layout.carditem2, viewGroup, false);
+            textViewHolder vh = new textViewHolder(v);
+            return vh;
+        }else if (i == 2){
+            View v = LayoutInflater.from(mContext)
+                    .inflate(R.layout.carditem, viewGroup, false);
+            aqiViewHolder vh = new aqiViewHolder(v);
+            return vh;
+        }else{
+            View v = LayoutInflater.from(mContext)
+                    .inflate(R.layout.weather_img_card, viewGroup, false);
+            weatherViewHolder vh = new weatherViewHolder(v);
+            return vh;
+        }
 //        if (i == 1){
 //            View v = LayoutInflater.from(mContext)
 //                    .inflate(R.layout.carditem, viewGroup, false);
@@ -55,24 +60,31 @@ class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implem
 //            return vh;
 //        }
 
-        View v = LayoutInflater.from(mContext)
-                .inflate(R.layout.carditem2, viewGroup, false);
-        textViewHolder vh = new textViewHolder(v);
-        return vh;
+//        View v = LayoutInflater.from(mContext)
+//                .inflate(R.layout.carditem2, viewGroup, false);
+//        textViewHolder vh = new textViewHolder(v);
+//        return vh;
+
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {          //i=position
 //        if (viewHolder instanceof textViewHolder){
 //            ((textViewHolder) viewHolder).tv1.setText(data[i]);
 //        }
-        getApiData();
-        ((textViewHolder) viewHolder).titleText.setText("油價");
-        if(oilData != null){
-            ((textViewHolder) viewHolder).oil92.setText(oilData.getOil92() + "元/公升");
-            ((textViewHolder) viewHolder).oil95.setText(oilData.getOil95() + "元/公升");
-            ((textViewHolder) viewHolder).oil98.setText(oilData.getOil98() + "元/公升");
-            ((textViewHolder) viewHolder).supOil.setText(oilData.getSuperOil() + "元/公升");
+        //----------------------------油價可以用的--------------------------------------------------
+        if(oilData != null) {
+            if (i == 3) {
+                //getApiData();
+                ((textViewHolder) viewHolder).titleText.setText("油價");
+                if (oilData != null) {
+                    ((textViewHolder) viewHolder).oil92.setText(oilData.getOil92() + "元/公升");
+                    ((textViewHolder) viewHolder).oil95.setText(oilData.getOil95() + "元/公升");
+                    ((textViewHolder) viewHolder).oil98.setText(oilData.getOil98() + "元/公升");
+                    ((textViewHolder) viewHolder).supOil.setText(oilData.getSuperOil() + "元/公升");
+                }
+            }
         }
 
 
@@ -90,7 +102,7 @@ class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implem
 
     @Override
     public int getItemCount() {
-        return 1;
+        return 4;
     }
 
     @Override
@@ -99,16 +111,16 @@ class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implem
         this.notifyDataSetChanged();
     }
 
-//    @Override
-//    public int getItemViewType(int position){
-//        if (position == 0){
-//            return 0;
-//        }else if (position == 1){
-//            return 1;
-//        }else{
-//            return 2;
-//        }
-//    }
+    @Override
+    public int getItemViewType(int position){
+        if (position == 3){
+            return 0;
+        }else if(position == 2){
+            return 1;
+        }else{
+            return 2;
+        }
+    }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -117,19 +129,15 @@ class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implem
         }
     }
 
-    public class masterViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv1;
-        public masterViewHolder(@NonNull View itemView) {
+    public class weatherViewHolder extends RecyclerView.ViewHolder {
+        public weatherViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv1 = (TextView)itemView.findViewById(R.id.textView);
         }
     }
 
-    public class imgViewHolder extends RecyclerView.ViewHolder{
-        public ImageView iv1;
-        public imgViewHolder(@NonNull View itemView) {
+    public class aqiViewHolder extends RecyclerView.ViewHolder{
+        public aqiViewHolder(@NonNull View itemView) {
             super(itemView);
-            iv1 = (ImageView)itemView.findViewById(R.id.imageView);
         }
     }
 
@@ -166,7 +174,7 @@ class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implem
                 if (response != null) {
                     setOilData(response.body());
                     String title = response.body().getOil92();
-                    //Log.d("title", title);
+                    Log.d("title", title);
                 }
             }
 

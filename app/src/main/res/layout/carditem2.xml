@@ -8,7 +8,7 @@
     android:layout_margin="6dp"
     android:padding="6dp"
     app:cardBackgroundColor="@color/cardview_light_background"
-    app:cardCornerRadius="28dp"
+    app:cardCornerRadius="15dp"
     app:cardElevation="6dp">
 
 
@@ -142,7 +142,7 @@
             android:layout_marginEnd="75dp"
             app:layout_constraintEnd_toStartOf="@+id/imageView3"
             app:layout_constraintTop_toBottomOf="@+id/topicTextView"
-            app:srcCompat="@drawable/oilgun" />
+            app:srcCompat="@drawable/oilgun92" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -152,7 +152,7 @@
             android:layout_marginEnd="83dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/oilgun" />
+            app:srcCompat="@drawable/oilgun95" />
 
         <ImageView
             android:id="@+id/imageView4"
@@ -162,7 +162,7 @@
             android:layout_marginEnd="75dp"
             app:layout_constraintEnd_toStartOf="@+id/imageView5"
             app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            app:srcCompat="@drawable/oilgun" />
+            app:srcCompat="@drawable/oilgun98" />
 
         <ImageView
             android:id="@+id/imageView5"
@@ -172,7 +172,7 @@
             android:layout_marginEnd="83dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView3"
-            app:srcCompat="@drawable/oilgun" />
+            app:srcCompat="@drawable/oilgunsup" />
 
     </android.support.constraint.ConstraintLayout>
 
