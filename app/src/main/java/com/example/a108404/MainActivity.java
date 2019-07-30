@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             String jsonStr = gson.toJson(usinglist);
-            spf.edit().putString("use", jsonStr).commit();
+            spf.edit().putString("use", jsonStr).apply();
 
         }else{
             Type collectionType = new TypeToken<ArrayList<ToolList>>() {}.getType();
@@ -105,29 +105,33 @@ public class MainActivity extends AppCompatActivity {
 
 //-------------------連線測試-------------------------------------------------------------------------------------
         // 2. 透過RetrofitManager取得連線基底
-        myAPIService = RetrofitManager.getInstance().getAPI();
-
-        // 3. 建立連線的Call，此處設置call為myAPIService中的getAlbums()連線
-        Call<Oil> call = myAPIService.postOil();
-
-        // 4. 執行call
-        call.enqueue(new Callback<Oil>() {
-            @Override
-            public void onResponse(Call<Oil> call, Response<Oil> response) {
-                // 連線成功
-                // 回傳的資料已轉成Albums物件，可直接用get方法取得特定欄位
-
-                if (response != null) {
-                    String title = response.body().getOil92();
-                    Log.d("title", title);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Oil> call, Throwable t) {
-                // 連線失敗
-            }
-        });
+//        myAPIService = RetrofitManager.getInstance().getAPI();
+//
+//        SetAddress setAddress = new SetAddress();
+//        setAddress.setLat("26.982628");
+//        setAddress.setLon("121.558885");
+//
+//        // 3. 建立連線的Call，此處設置call為myAPIService中的getAlbums()連線
+//        Call<Oil> call = myAPIService.postAqi(setAddress);
+//
+//        // 4. 執行call
+//        call.enqueue(new Callback<Oil>() {
+//            @Override
+//            public void onResponse(Call<Oil> call, Response<Oil> response) {
+//                // 連線成功
+//                // 回傳的資料已轉成Albums物件，可直接用get方法取得特定欄位
+//
+//                if (response != null) {
+//                    String title = response.body().getOil92();
+//                    Log.d("title", title);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Oil> call, Throwable t) {
+//                // 連線失敗
+//            }
+//        });
 
     }
 

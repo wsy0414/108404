@@ -1,5 +1,7 @@
 package com.example.a108404;
 
+import android.location.Address;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -20,4 +22,8 @@ public interface MyAPIService {
 
     @POST("oils") // 用@Body表示要傳送Body資料
     Call<Oil> postOil();
+
+    @POST("aqi") // 用@Body表示要傳送Body資料
+    Call<Oil> postAqi(@Body SetAddress setAddress);
 }
+
