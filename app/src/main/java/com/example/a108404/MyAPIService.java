@@ -1,12 +1,18 @@
 package com.example.a108404;
 
-import android.location.Address;
+import com.example.a108404.Module.Aqi;
+import com.example.a108404.Module.Oil;
+import com.example.a108404.Module.OilQuery;
+import com.example.a108404.Module.ParkNTPC;
+import com.example.a108404.Module.ParkQuery;
+import com.example.a108404.Module.PreWeather;
+import com.example.a108404.Module.SetAddress;
+import com.example.a108404.Module.Warning;
+import com.example.a108404.Module.Weather;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 
 public interface MyAPIService {
     // 測試網站      https://jsonplaceholder.typicode.com/
@@ -20,10 +26,23 @@ public interface MyAPIService {
 //    @GET("albums/{id}") // 用{}表示路徑參數，@Path會將參數帶入至該位置
 //    Call<Albums> getAlbumsById(@Path("id") int id);
 
-    @POST("oils") // 用@Body表示要傳送Body資料
-    Call<Oil> postOil();
+    @POST("/gasprice/") // 用@Body表示要傳送Body資料
+    Call<Oil> postOil(@Body OilQuery oilQuery);
 
-    @POST("aqi") // 用@Body表示要傳送Body資料
-    Call<Oil> postAqi(@Body SetAddress setAddress);
+
+    @POST("/aqi/") // 用@Body表示要傳送Body資料
+    Call<Aqi> postAqi(@Body SetAddress setAddress);
+
+    @POST("/weather/") // 用@Body表示要傳送Body資料
+    Call<Weather> postWeather(@Body SetAddress setAddress);
+
+    @POST("/preweather/") // 用@Body表示要傳送Body資料
+    Call<PreWeather> postPreWeather(@Body SetAddress setAddress);
+
+    @POST("/partNTPC/") // 用@Body表示要傳送Body資料
+    Call<ParkNTPC> postParkNTPC(@Body ParkQuery parkQuery);
+
+    @POST("/warning/") // 用@Body表示要傳送Body資料
+    Call<Warning> postWarning(@Body SetAddress setAddress);
 }
 

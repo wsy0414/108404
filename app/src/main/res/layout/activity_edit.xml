@@ -8,18 +8,23 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/editRecycler"
-        android:layout_width="401dp"
-        android:layout_height="645dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="78dp" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+        app:layout_constraintVertical_bias="0.0" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar3"
-        android:layout_width="414dp"
-        android:layout_height="54dp"
-        android:background="?attr/colorPrimary"
+        android:layout_width="408dp"
+        android:layout_height="70dp"
+        android:background="@android:color/background_light"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-2dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

@@ -3,9 +3,8 @@ package com.example.a108404;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.View;
-import android.view.ViewGroup;
+
+import com.example.a108404.Module.ToolList;
 
 import java.util.ArrayList;
 

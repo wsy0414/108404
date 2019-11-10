@@ -7,7 +7,7 @@
     android:layout_height="200dp"
     android:layout_margin="6dp"
     android:orientation="horizontal"
-    android:padding="6dp"
+    android:padding="3dp"
     app:cardBackgroundColor="@color/cardview_light_background"
     app:cardCornerRadius="15dp"
     app:cardElevation="6dp">
@@ -28,26 +28,26 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/pmText"
             android:layout_width="56dp"
             android:layout_height="34dp"
             android:layout_marginStart="45dp"
             android:layout_marginTop="19dp"
             android:gravity="center_horizontal"
-            android:text="AQI"
+            android:text="--"
             android:textColor="@android:color/black"
             android:textSize="24sp"
-            app:layout_constraintStart_toEndOf="@+id/textView18"
+            app:layout_constraintStart_toEndOf="@+id/aqiText"
             app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/aqiText"
             android:layout_width="56dp"
             android:layout_height="34dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="19dp"
             android:gravity="center_horizontal"
-            android:text="AQI"
+            android:text="--"
             android:textColor="@android:color/black"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -76,27 +76,27 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/aqiStateImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView19"
+            app:layout_constraintTop_toBottomOf="@+id/aqiStateText"
             app:srcCompat="@drawable/greenline" />
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/pmStateImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
             android:layout_marginTop="5dp"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/textView20"
+            app:layout_constraintStart_toEndOf="@+id/aqiStateImg"
+            app:layout_constraintTop_toBottomOf="@+id/pmStateText"
             app:srcCompat="@drawable/redline" />
 
         <TextView
-            android:id="@+id/textView19"
+            android:id="@+id/aqiStateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -104,18 +104,30 @@
             android:text="良好"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView18" />
+            app:layout_constraintTop_toBottomOf="@+id/aqiText" />
 
         <TextView
-            android:id="@+id/textView20"
+            android:id="@+id/pmStateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
             android:layout_marginTop="13dp"
             android:text="危險"
             android:textColor="@android:color/black"
-            app:layout_constraintStart_toEndOf="@+id/textView19"
-            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+            app:layout_constraintStart_toEndOf="@+id/aqiStateText"
+            app:layout_constraintTop_toBottomOf="@+id/pmText" />
+
+        <ImageView
+            android:id="@+id/imageView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11"
+            app:srcCompat="@drawable/shortline" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

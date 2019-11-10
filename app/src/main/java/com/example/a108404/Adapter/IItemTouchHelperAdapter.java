@@ -1,4 +1,4 @@
-package com.example.a108404;
+package com.example.a108404.Adapter;
 
 public interface IItemTouchHelperAdapter {
     /**

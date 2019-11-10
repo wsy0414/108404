@@ -1,4 +1,4 @@
-package com.example.a108404;
+package com.example.a108404.Service;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

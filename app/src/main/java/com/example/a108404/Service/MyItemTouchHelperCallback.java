@@ -1,12 +1,10 @@
-package com.example.a108404;
+package com.example.a108404.Service;
 
-import android.graphics.Canvas;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
+import com.example.a108404.Adapter.IItemTouchHelperAdapter;
 import com.loopeer.itemtouchhelperextension.ItemTouchHelperExtension;
 
 public class MyItemTouchHelperCallback extends ItemTouchHelperExtension.Callback {

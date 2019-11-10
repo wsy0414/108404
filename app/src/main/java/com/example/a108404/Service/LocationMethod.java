@@ -1,4 +1,4 @@
-package com.example.a108404;
+package com.example.a108404.Service;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -109,7 +109,7 @@ public class LocationMethod{
             latitude = 25.789574;
             longitude = 121.565427;
         }
-        String locality = "_ _";
+        String locality = "";
        // if (context != null) {
             Log.d("showLocation", "ok");
             Geocoder gc = new Geocoder(context, TRADITIONAL_CHINESE);
@@ -125,7 +125,8 @@ public class LocationMethod{
                     }
                     locality = address.getLocality();
                     //subAdminArea = address.getAddressLine();
-                    Log.d("address:", locality);
+                    //Log.d("address:", locality);
+
                 }
             } catch (Exception e) {
                 String eee = "error";

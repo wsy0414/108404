@@ -1,4 +1,4 @@
-package com.example.a108404;
+package com.example.a108404.Module;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -8,19 +8,8 @@ public class SetAddress{
     @SerializedName("Latitude")
     public String lat;
 
-    public String getLat() {
-        return lat;
-    }
-
-    public String getLon() {
-        return lon;
-    }
-
-    public void setLat(String lat) {
+    public SetAddress(String lon, String lat){
         this.lat = lat;
-    }
-
-    public void setLon(String lon) {
         this.lon = lon;
     }
 }
