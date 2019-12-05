@@ -1,14 +1,18 @@
 package com.example.a108404;
 
+import com.example.a108404.Module.AllYouBikeQuery;
 import com.example.a108404.Module.Aqi;
 import com.example.a108404.Module.Oil;
 import com.example.a108404.Module.OilQuery;
 import com.example.a108404.Module.ParkNTPC;
 import com.example.a108404.Module.ParkQuery;
 import com.example.a108404.Module.PreWeather;
+import com.example.a108404.Module.Retval;
 import com.example.a108404.Module.SetAddress;
 import com.example.a108404.Module.Warning;
 import com.example.a108404.Module.Weather;
+import com.example.a108404.Module.YouBikeQuery;
+import com.example.a108404.Module.Youbike;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -39,10 +43,19 @@ public interface MyAPIService {
     @POST("/preweather/") // 用@Body表示要傳送Body資料
     Call<PreWeather> postPreWeather(@Body SetAddress setAddress);
 
-    @POST("/partNTPC/") // 用@Body表示要傳送Body資料
+    @POST("/parkNTPC/") // 用@Body表示要傳送Body資料
     Call<ParkNTPC> postParkNTPC(@Body ParkQuery parkQuery);
 
     @POST("/warning/") // 用@Body表示要傳送Body資料
     Call<Warning> postWarning(@Body SetAddress setAddress);
+
+    @POST("/getCloseBike/") // 用@Body表示要傳送Body資料
+    Call<Youbike> postUbike(@Body YouBikeQuery youBikeQuery);
+
+    @POST("/getAllBike/") // 用@Body表示要傳送Body資料
+    Call<Retval> postAllBike(@Body AllYouBikeQuery allYouBikeQuery);
+
+    @POST("/parkNTPC/") // 用@Body表示要傳送Body資料
+    Call<ParkNTPC> postAllPark(@Body ParkQuery parkQuery);
 }
 

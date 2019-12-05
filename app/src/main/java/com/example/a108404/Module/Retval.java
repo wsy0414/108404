@@ -6,22 +6,14 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Retval {
-    @SerializedName("retCode")
-    public String retCode;
+    @SerializedName("bikes")
+    public ArrayList<Youbike> retVal;
 
-    @SerializedName("retVal")
-    public Map<String, Youbike> retVal;
-
-    public Retval(String retCode, Map<String, Youbike> retval){
-        this.retCode = retCode;
+    public Retval(ArrayList<Youbike> retval){
         this.retVal = retval;
     }
 
-    public String getRetCode() {
-        return retCode;
-    }
-
-    public Map<String, Youbike> getRetVal() {
+    public ArrayList<Youbike> getRetVal() {
         return retVal;
     }
 }

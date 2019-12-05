@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.a108404.R;
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -14,7 +15,12 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        mHandler.sendEmptyMessageDelayed(GOTO_MAIN_ACTIVITY, 2000); //2秒跳轉
+
+        final LottieAnimationView lottieLike = (LottieAnimationView) findViewById(R.id.lottie);
+
+        lottieLike.playAnimation();
+
+        mHandler.sendEmptyMessageDelayed(GOTO_MAIN_ACTIVITY, 5000); //2秒跳轉
     }
     private static final int GOTO_MAIN_ACTIVITY = 0;
     private Handler mHandler = new Handler() {

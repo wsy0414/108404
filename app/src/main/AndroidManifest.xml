@@ -39,13 +39,18 @@
             android:value="@string/google_maps_key" />
 
         <activity
+            android:name=".Activity.ParkMapsActivity"
+            android:label="@string/title_activity_park_maps"></activity>
+        <activity android:name=".Activity.SearchActivity" />
+        <activity
             android:name=".Activity.YouBikeMapsActivity"
-            android:label="@string/title_activity_you_bike_maps"></activity>
+            android:label="@string/title_activity_you_bike_maps" />
         <activity android:name=".Activity.DetailWeatherActivity" />
         <activity android:name=".Activity.ToolActivity" />
         <activity android:name=".Activity.DetailAQIActivity" />
         <activity android:name=".Activity.SettingActivity" />
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

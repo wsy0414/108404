@@ -12,13 +12,13 @@ import com.example.a108404.Module.Youbike;
 import java.util.ArrayList;
 
 public interface setData{
-    void setOilData(Oil oilData);
+    void  setOilData(Oil oilData);
 
     void setAqiData(Aqi aqiData);
 
     void setWeatherData(Weather weatherData);
 
-    void setUbikeData(ArrayList<Youbike> ubikeData);
+    void setUbikeData(Youbike ubikeData, String city);
 
     void setParkData(ParkNTPC parkData);
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="260dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="200dp"
     android:layout_margin="6dp"
     android:padding="6dp"
     app:cardBackgroundColor="@color/cardview_light_background"
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="新北市汽車停車"
+            android:text="新北市停車位"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,10 +31,8 @@
             android:layout_height="29dp"
             android:layout_marginStart="17dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="17dp"
-            android:text="地址"
+            android:text="汽車停車位"
             android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -44,18 +42,18 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="22dp"
-            android:text="收費時段："
+            android:text="狀態："
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addressText" />
 
         <TextView
             android:id="@+id/timeText"
-            android:layout_width="250dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="22dp"
-            android:text="TextView"
+            android:text="--"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toEndOf="@+id/textView22"
             app:layout_constraintTop_toBottomOf="@+id/addressText" />
@@ -64,23 +62,23 @@
             android:id="@+id/textView39"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="25dp"
-            android:text="計費方式："
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="22dp"
+            android:text="計費："
             android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView22" />
+            app:layout_constraintStart_toEndOf="@+id/timeText"
+            app:layout_constraintTop_toBottomOf="@+id/addressText" />
 
         <TextView
             android:id="@+id/payText"
-            android:layout_width="250dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
-            android:text="TextView"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="22dp"
+            android:text="--"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toEndOf="@+id/textView39"
-            app:layout_constraintTop_toBottomOf="@+id/timeText" />
+            app:layout_constraintTop_toBottomOf="@+id/addressText" />
 
         <TextView
             android:id="@+id/textView46"
@@ -88,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="17dp"
             android:layout_marginTop="30dp"
-            android:text="剩餘車位："
+            android:text="備註："
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView39" />
@@ -100,10 +98,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="11dp"
             android:gravity="center_vertical"
-            android:text="20"
+            android:text="--"
             android:textAlignment="center"
             android:textColor="@android:color/black"
-            android:textSize="36sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/textView46"
             app:layout_constraintTop_toBottomOf="@+id/payText" />

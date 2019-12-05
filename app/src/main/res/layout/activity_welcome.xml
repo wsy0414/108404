@@ -6,9 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".Activity.WelcomeActivity">
 
-    <ImageView
-        android:id="@+id/imageView24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/all4one" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_fileName="welcome.json"
+        app:lottie_loop="true"
+        android:layout_centerInParent="true"/>
 </android.support.constraint.ConstraintLayout>

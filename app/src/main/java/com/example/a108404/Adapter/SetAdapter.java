@@ -67,40 +67,6 @@ public class SetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {/
                 }
                 //((addViewHolder) viewHolder).sw1.setChecked(usingData.get(i - 1).getUsing());
             }
-//            try {
-//                ((addViewHolder) viewHolder).moveBtn.setOnTouchListener(new View.OnTouchListener() {
-//                    @Override
-//                    public boolean onTouch(View v, MotionEvent event) {
-//                        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-//                            if (mDragListener != null) {
-//                                Log.d("touch", "ok");
-//                                mDragListener.onStartDrag(viewHolder);
-//                                Log.d("touch", "ok");
-//                            }
-//                        }
-//                        return false;
-//                    }
-//                });
-//            }catch (Exception e){
-//                Log.d("aa", "aa");
-//            }
-//            ((addViewHolder) viewHolder).sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                @Override
-//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                    if(isChecked){
-//                        int index = i - 2 - usingData.size();
-//                        usingData.add(nonData.get(index));
-//                        nonData.remove(index);
-//                        usingData.get(usingData.size()-1).setUsing(isChecked);
-//                    }else{
-//                        int index = i - 1;
-//                        nonData.add(usingData.get(index));
-//                        usingData.remove(index);
-//                        nonData.get(nonData.size()-1).setUsing(isChecked);
-//                    }
-//
-//                }
-//            });
         }
 
     }
@@ -119,29 +85,6 @@ public class SetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {/
 
         notifyItemRemoved(position);
     }
-
-//    public void moveItem(int fromPos, int toPos) {
-//        Collections.swap(Arrays.asList(setData), fromPos, toPos);
-//        notifyItemMoved(fromPos, toPos);
-//    }
-
-//    @Override
-//    public void onItemMove(int fromPosition, int toPosition) {
-//        //Collections.swap(usingData, fromPosition, toPosition);
-//
-//        notifyItemMoved(fromPosition, toPosition);
-//    }
-
-//    @Override
-//    public void onItemDismiss(int position) {
-//        Log.d("position", String.valueOf(position));
-//        nonData.add(usingData.get(position));
-//        usingData.remove(position);
-//
-//        notifyItemRemoved(position);
-//    }
-
-
 
     @Override
     public int getItemViewType(int position){

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.a108404.Activity.DetailAQIActivity;
 import com.example.a108404.Activity.DetailWeatherActivity;
+import com.example.a108404.Activity.ParkMapsActivity;
 import com.example.a108404.Activity.YouBikeMapsActivity;
 import com.example.a108404.Module.Aqi;
 import com.example.a108404.Module.Park;
@@ -29,6 +30,8 @@ import com.google.gson.Gson;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements setData {
     Context mContext;
@@ -40,9 +43,20 @@ public class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public PreWeather preWeatherData;
     //public String[] data;
     ArrayList<String> data;
-    public ArrayList<Youbike> ubikeData;
+    public Map<String, Youbike> ubikeData = new HashMap<String, Youbike>();
     private OnItemClickListener mItemClickListener;
     public ParkNTPC parkData;
+    public Youbike taipeiUBikeData;
+    public Youbike newTaipeiUBikeData;
+    public Youbike hsinchuUBikeData;
+    public Youbike miaoliCountyUBikeData;
+    public Youbike changhuaCountyUBikeData;
+    public Youbike pingtungCountyUBikeData;
+    public Youbike taoyuanUBikeData;
+    public Youbike kaohsiungUBikeData;
+    public Youbike tainanUBikeData;
+    public Youbike taichungUBikeData;
+
     public MasterAdapter(Context context, ArrayList<String> data){
         this.mContext = context;
         this.data = data;
@@ -87,32 +101,10 @@ public class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ubikeViewHolder vh = new ubikeViewHolder(v);
             return vh;
         }
-//        if (i == 1){
-//            View v = LayoutInflater.from(mContext)
-//                    .inflate(R.layout.carditem, viewGroup, false);
-//            imgViewHolder vh = new imgViewHolder(v);
-//            return vh;
-//        }else{
-//            View v = LayoutInflater.from(mContext)
-//                    .inflate(R.layout.carditem2, viewGroup, false);
-//            textViewHolder vh = new textViewHolder(v);
-//            return vh;
-//        }
-
-//        View v = LayoutInflater.from(mContext)
-//                .inflate(R.layout.carditem2, viewGroup, false);
-//        textViewHolder vh = new textViewHolder(v);
-//        return vh;
-
-
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int i) {          //i=position
-//        if (viewHolder instanceof textViewHolder){
-//            ((textViewHolder) viewHolder).tv1.setText(data[i]);
-//        }
-        //----------------------------油價可以用的--------------------------------------------------
+    public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int i) {
         if(oilData != null) {
             if (data.get(i).equals("油價")) {
                 //getApiData();
@@ -128,8 +120,6 @@ public class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         if(aqiData != null) {
             if (data.get(i).equals("空氣品質")) {
-                //getApiData();
-                //((textViewHolder) viewHolder).titleText.setText("油價");
                 int aqi = Integer.valueOf(aqiData.getAQI());
                 int pm = Integer.valueOf(aqiData.getPM25());
 
@@ -160,47 +150,137 @@ public class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ((weatherNowViewHolder) viewHolder).tempNowText.setText(weatherData.getTempNow() + "°");
             }
 
-            if (data.get(i).equals("今天白天")) {
-                ((weatherViewHolder) viewHolder).rainText.setText(weatherData.getRainFall());
+            if(data.get(i).equals("今天白天")){
+                int temp = Integer.valueOf(weatherData.getTempNow());
+                if(temp >= 26) {
+                    ((weatherViewHolder) viewHolder).clothesImg.setImageResource(R.drawable.shirt);
+                }else if(temp >= 20){
+                    ((weatherViewHolder) viewHolder).clothesImg.setImageResource(R.drawable.sleeve);
+                }else if(temp >= 16){
+                    ((weatherViewHolder) viewHolder).clothesImg.setImageResource(R.drawable.coat);
+                }else{
+                    ((weatherViewHolder) viewHolder).clothesImg.setImageResource(R.drawable.scarf);
+                }
             }
         }
 
         if(preWeatherData != null) {
             if (data.get(i).equals("今天白天")) {
-                ((weatherViewHolder) viewHolder).tempFlowText.setText(preWeatherData.getNowMax() + "°C~" + preWeatherData.getNowMin() + "°C");
+                ((weatherViewHolder) viewHolder).tempFlowText.setText(preWeatherData.getNowMin() + "°C~" + preWeatherData.getNowMax() + "°C");
                 ((weatherViewHolder) viewHolder).wStatusText.setText(preWeatherData.getNowState());
+                ((weatherViewHolder) viewHolder).rainText.setText(preWeatherData.getNowRainFall() + "%");
+
+                int rainFall = Integer.valueOf(preWeatherData.getNowRainFall());
+                if(rainFall >= 50) {
+                    ((weatherViewHolder) viewHolder).accesImg.setImageResource(R.drawable.umbrella);
+                    ((weatherViewHolder) viewHolder).stateImg.setImageResource(R.drawable.movie);
+                }else if(rainFall >= 10){
+                    ((weatherViewHolder) viewHolder).accesImg.setImageResource(R.drawable.drink);
+                    ((weatherViewHolder) viewHolder).stateImg.setImageResource(R.drawable.swim);
+                }else{
+                    ((weatherViewHolder) viewHolder).accesImg.setImageResource(R.drawable.hanger);
+                    ((weatherViewHolder) viewHolder).stateImg.setImageResource(R.drawable.run);
+                }
+
+                if(preWeatherData.getNowState().equals("多雲") || preWeatherData.getNowState().equals("陰時多雲")){
+                    ((weatherViewHolder) viewHolder).weatherImg.setImageResource(R.drawable.wind);
+                }else if(preWeatherData.getNowState().equals("多雲短暫雨") || preWeatherData.getNowState().equals("多雲時陰短暫雨")){
+                    ((weatherViewHolder) viewHolder).weatherImg.setImageResource(R.drawable.srain);
+                }else{
+                    ((weatherViewHolder) viewHolder).weatherImg.setImageResource(R.drawable.sunny);
+                }
             }
         }
 
-        if(ubikeData != null) {
-            if (data.get(i).equals("YouBike")) {
-                //getApiData();
-                //((textViewHolder) viewHolder).titleText.setText("油價");
-
-                ((ubikeViewHolder) viewHolder).borText1.setText(ubikeData.get(0).getCanBorrow());
-                ((ubikeViewHolder) viewHolder).borText2.setText(ubikeData.get(1).getCanBorrow());
-                ((ubikeViewHolder) viewHolder).borText3.setText(ubikeData.get(2).getCanBorrow());
-                ((ubikeViewHolder) viewHolder).bempText1.setText(ubikeData.get(0).getBemp());
-                ((ubikeViewHolder) viewHolder).bempText2.setText(ubikeData.get(1).getBemp());
-                ((ubikeViewHolder) viewHolder).bempText3.setText(ubikeData.get(2).getBemp());
-                ((ubikeViewHolder) viewHolder).staText1.setText(ubikeData.get(0).getStationName());
-                ((ubikeViewHolder) viewHolder).staText2.setText(ubikeData.get(1).getStationName());
-                ((ubikeViewHolder) viewHolder).staText3.setText(ubikeData.get(2).getStationName());
-
+        if(taipeiUBikeData != null) {
+            if (data.get(i).equals("台北市YouBike")) {
+                ((ubikeViewHolder) viewHolder).ubikecityText.setText(data.get(i));
+                ((ubikeViewHolder) viewHolder).borText1.setText(taipeiUBikeData.getCanBorrow());
+                ((ubikeViewHolder) viewHolder).bempText1.setText(taipeiUBikeData.getBemp());
+                ((ubikeViewHolder) viewHolder).staText1.setText(taipeiUBikeData.getStationName());
+            }
+        }
+        if(newTaipeiUBikeData != null) {
+            if (data.get(i).equals("新北市YouBike")) {
+                ((ubikeViewHolder) viewHolder).ubikecityText.setText(data.get(i));
+                ((ubikeViewHolder) viewHolder).borText1.setText(newTaipeiUBikeData.getCanBorrow());
+                ((ubikeViewHolder) viewHolder).bempText1.setText(newTaipeiUBikeData.getBemp());
+                ((ubikeViewHolder) viewHolder).staText1.setText(newTaipeiUBikeData.getStationName());
+            }
+        }
+        if(taoyuanUBikeData != null) {
+            if (data.get(i).equals("桃園YouBike")) {
+                ((ubikeViewHolder) viewHolder).ubikecityText.setText(data.get(i));
+                ((ubikeViewHolder) viewHolder).borText1.setText(taoyuanUBikeData.getCanBorrow());
+                ((ubikeViewHolder) viewHolder).bempText1.setText(taoyuanUBikeData.getBemp());
+                ((ubikeViewHolder) viewHolder).staText1.setText(taoyuanUBikeData.getStationName());
+            }
+        }
+        if(tainanUBikeData != null) {
+            if (data.get(i).equals("台南YouBike")) {
+                ((ubikeViewHolder) viewHolder).ubikecityText.setText(data.get(i));
+                ((ubikeViewHolder) viewHolder).borText1.setText(tainanUBikeData.getCanBorrow());
+                ((ubikeViewHolder) viewHolder).bempText1.setText(tainanUBikeData.getBemp());
+                ((ubikeViewHolder) viewHolder).staText1.setText(tainanUBikeData.getStationName());
+            }
+        }
+        if(taichungUBikeData != null) {
+            if (data.get(i).equals("台中YouBike")) {
+                ((ubikeViewHolder) viewHolder).ubikecityText.setText(data.get(i));
+                ((ubikeViewHolder) viewHolder).borText1.setText(taichungUBikeData.getCanBorrow());
+                ((ubikeViewHolder) viewHolder).bempText1.setText(taichungUBikeData.getBemp());
+                ((ubikeViewHolder) viewHolder).staText1.setText(taichungUBikeData.getStationName());
+            }
+        }
+        if(hsinchuUBikeData != null) {
+            if (data.get(i).equals("新竹YouBike")) {
+                ((ubikeViewHolder) viewHolder).ubikecityText.setText(data.get(i));
+                ((ubikeViewHolder) viewHolder).borText1.setText(hsinchuUBikeData.getCanBorrow());
+                ((ubikeViewHolder) viewHolder).bempText1.setText(hsinchuUBikeData.getBemp());
+                ((ubikeViewHolder) viewHolder).staText1.setText(hsinchuUBikeData.getStationName());
+            }
+        }
+        if(miaoliCountyUBikeData != null) {
+            if (data.get(i).equals("苗栗YouBike")) {
+                ((ubikeViewHolder) viewHolder).ubikecityText.setText(data.get(i));
+                ((ubikeViewHolder) viewHolder).borText1.setText(miaoliCountyUBikeData.getCanBorrow());
+                ((ubikeViewHolder) viewHolder).bempText1.setText(miaoliCountyUBikeData.getBemp());
+                ((ubikeViewHolder) viewHolder).staText1.setText(miaoliCountyUBikeData.getStationName());
+            }
+        }
+        if(pingtungCountyUBikeData != null) {
+            if (data.get(i).equals("屏東YouBike")) {
+                ((ubikeViewHolder) viewHolder).ubikecityText.setText(data.get(i));
+                ((ubikeViewHolder) viewHolder).borText1.setText(pingtungCountyUBikeData.getCanBorrow());
+                ((ubikeViewHolder) viewHolder).bempText1.setText(pingtungCountyUBikeData.getBemp());
+                ((ubikeViewHolder) viewHolder).staText1.setText(pingtungCountyUBikeData.getStationName());
+            }
+        }
+        if(changhuaCountyUBikeData != null) {
+            if (data.get(i).equals("彰化YouBike")) {
+                ((ubikeViewHolder) viewHolder).ubikecityText.setText(data.get(i));
+                ((ubikeViewHolder) viewHolder).borText1.setText(changhuaCountyUBikeData.getCanBorrow());
+                ((ubikeViewHolder) viewHolder).bempText1.setText(changhuaCountyUBikeData.getBemp());
+                ((ubikeViewHolder) viewHolder).staText1.setText(changhuaCountyUBikeData.getStationName());
+            }
+        }
+        if(kaohsiungUBikeData != null) {
+            if (data.get(i).equals("高雄YouBike")) {
+                ((ubikeViewHolder) viewHolder).ubikecityText.setText(data.get(i));
+                ((ubikeViewHolder) viewHolder).borText1.setText(kaohsiungUBikeData.getCanBorrow());
+                ((ubikeViewHolder) viewHolder).bempText1.setText(kaohsiungUBikeData.getBemp());
+                ((ubikeViewHolder) viewHolder).staText1.setText(kaohsiungUBikeData.getStationName());
             }
         }
 
         if(parkData != null) {
             if (data.get(i).equals("新北市汽車停車")) {
-                //getApiData();
-                //((textViewHolder) viewHolder).titleText.setText("油價")
                 if(Integer.valueOf(parkData.getResult()) == 0){
                     ((parkViewHolder) viewHolder).addressText.setText("功能未提供");
                 }else{
-                    ((parkViewHolder) viewHolder).addressText.setText(parkData.getPark().get(0).getLatitude());
-                    ((parkViewHolder) viewHolder).timeText.setText(parkData.getPark().get(0).getDay() + parkData.getPark().get(0).getHour());
+                    ((parkViewHolder) viewHolder).timeText.setText(parkData.getPark().get(0).getParkStatusZh());
                     ((parkViewHolder) viewHolder).payText.setText(parkData.getPark().get(0).getPayCash());
-                    ((parkViewHolder) viewHolder).numText.setText(parkData.getPark().get(0).getCellStatus());
+                    ((parkViewHolder) viewHolder).numText.setText(parkData.getPark().get(0).getMemo());
                 }
             }
         }
@@ -212,26 +292,7 @@ public class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             }
         }
-
-//        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mItemClickListener.onItemClick(viewHolder.itemView, i);
-//            }
-//        });
-
-
-//        if (i == 1){
-//            ((imgViewHolder) viewHolder).iv1.setImageResource(R.drawable.sun);
-//        }else if (i == 0){
-//            ((textViewHolder) viewHolder).tv1.setText(data[1]);
-//            //((textViewHolder) viewHolder).tv2.setText(data[2]);
-//        }else{
-//            ((textViewHolder) viewHolder).tv1.setText(data[3]);
-//            //((textViewHolder) viewHolder).tv2.setText(data[4]);
-//        }
     }
-
 
     @Override
     public int getItemCount() {
@@ -273,8 +334,8 @@ public class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void setUbikeData(ArrayList<Youbike> ubikeData) {
-        this.ubikeData = ubikeData;
+    public void setUbikeData(Youbike ubikeData, String city) {
+        this.ubikeData.put(city, ubikeData);
         this.notifyDataSetChanged();
     }
 
@@ -298,7 +359,7 @@ public class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             return 1;
         }else if(data.get(position).equals("空氣品質")){
             return 2;
-        }else if(data.get(position).equals("YouBike")){
+        }else if(data.get(position).equals("台北市YouBike") || data.get(position).equals("新北市YouBike") || data.get(position).equals("台中YouBike") || data.get(position).equals("台南YouBike") || data.get(position).equals("高雄YouBike") || data.get(position).equals("桃園YouBike") || data.get(position).equals("新竹YouBike") || data.get(position).equals("屏東YouBike") || data.get(position).equals("彰化YouBike") || data.get(position).equals("苗栗YouBike")){
             return 4;
         }else if(data.get(position).equals("新北市汽車停車")){
             return 5;
@@ -307,14 +368,6 @@ public class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }else{
             return 3;
         }
-
-        //        if (position == 3){
-//            return 0;
-//        }else if(position == 2){
-//            return 1;
-//        }else{
-//            return 2;
-//        }
     }
 
 
@@ -328,11 +381,19 @@ public class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public TextView tempFlowText;
         public TextView wStatusText;
         public TextView rainText;
+        public ImageView clothesImg;
+        public ImageView accesImg;
+        public ImageView stateImg;
+        public ImageView weatherImg;
         public weatherViewHolder(@NonNull View itemView) {
             super(itemView);
             tempFlowText = (TextView)itemView.findViewById(R.id.tempFlowText);
             wStatusText = (TextView)itemView.findViewById(R.id.WStatusText);
             rainText = (TextView)itemView.findViewById(R.id.rainText);
+            clothesImg = itemView.findViewById(R.id.clothesImg);
+            accesImg = itemView.findViewById(R.id.accesImg);
+            stateImg = itemView.findViewById(R.id.stateImg);
+            weatherImg = itemView.findViewById(R.id.weatherImg);
         }
     }
 
@@ -362,6 +423,7 @@ public class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public TextView pmStateText;
         public ImageView aqiStateImg;
         public ImageView pmStateImg;
+
         public aqiViewHolder(@NonNull View itemView) {
             super(itemView);
             aqiText = (TextView)itemView.findViewById(R.id.aqiText);
@@ -407,22 +469,18 @@ public class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public TextView staText1;
         public TextView staText2;
         public TextView staText3;
+        public TextView ubikecityText;
         public ubikeViewHolder(@NonNull View itemView) {
             super(itemView);
             borText1 = (TextView)itemView.findViewById(R.id.borText1);
-            borText2 = (TextView)itemView.findViewById(R.id.borText2);
-            borText3 = (TextView)itemView.findViewById(R.id.borText3);
             bempText1 = (TextView)itemView.findViewById(R.id.bempText1);
-            bempText2 = (TextView)itemView.findViewById(R.id.bempText2);
-            bempText3 = (TextView)itemView.findViewById(R.id.bempText3);
             staText1 = (TextView)itemView.findViewById(R.id.staText1);
-            staText2 = (TextView)itemView.findViewById(R.id.staText2);
-            staText3 = (TextView)itemView.findViewById(R.id.staText3);
+            ubikecityText = itemView.findViewById(R.id.ubikecityText);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, YouBikeMapsActivity.class);
-                    intent.putExtra("data", (Serializable)ubikeData);
+                    intent.putExtra("city", data.get(getAdapterPosition()));
                     mContext.startActivity(intent);
                 }
             });
@@ -436,18 +494,18 @@ public class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public TextView numText;
         public parkViewHolder(@NonNull View itemView) {
             super(itemView);
-            addressText = (TextView)itemView.findViewById(R.id.addressText);
+            //addressText = (TextView)itemView.findViewById(R.id.addressText);
             timeText = (TextView)itemView.findViewById(R.id.timeText);
-            payText = (TextView)itemView.findViewById(R.id.borText3);
+            payText = (TextView)itemView.findViewById(R.id.payText);
             numText = (TextView)itemView.findViewById(R.id.numText);
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent intent = new Intent(mContext, YouBikeMapsActivity.class);
-//                    intent.putExtra("data", (Serializable)ubikeData);
-//                    mContext.startActivity(intent);
-//                }
-//            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, ParkMapsActivity.class);
+                    //intent.putExtra("data", (Serializable)ubikeData);
+                    mContext.startActivity(intent);
+                }
+            });
         }
     }
 
@@ -456,43 +514,7 @@ public class MasterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public warnViewHolder(@NonNull View itemView) {
             super(itemView);
             warnText = (TextView)itemView.findViewById(R.id.warnText);
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent intent = new Intent(mContext, YouBikeMapsActivity.class);
-//                    intent.putExtra("data", (Serializable)ubikeData);
-//                    mContext.startActivity(intent);
-//                }
-//            });
         }
     }
-
-//    private void getApiData(){
-//        // 2. 透過RetrofitManager取得連線基底
-//        myAPIService = RetrofitManager.getInstance().getAPI();
-//
-//        // 3. 建立連線的Call，此處設置call為myAPIService中的getAlbums()連線
-//        Call<Oil> call = myAPIService.postOil();
-//
-//        // 4. 執行call
-//        call.enqueue(new Callback<Oil>() {
-//            @Override
-//            public void onResponse(Call<Oil> call, Response<Oil> response) {
-//                // 連線成功
-//                // 回傳的資料已轉成Albums物件，可直接用get方法取得特定欄位
-//
-//                if (response != null) {
-//                    setOilData(response.body());
-//                    String title = response.body().getOil92();
-//                    Log.d("title", title);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Oil> call, Throwable t) {
-//                // 連線失敗
-//            }
-//        });
-//    }
 }
 

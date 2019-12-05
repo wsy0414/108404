@@ -61,30 +61,8 @@ public class SettingActivity extends AppCompatActivity implements ondeleteBtnCli
         initView();
     }
 
-//    @Override
-//    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
-//        Log.d("startDrag", "ok");
-//        mItemTouchHelper.startDrag(viewHolder);
-//        Log.d("startDrag", "ok");
-//    }
-//
-//    @Override
-//    public void onStartSwip(RecyclerView.ViewHolder viewHolder){
-//        Log.d("startSwip", "ok");
-//        mItemTouchHelper.startSwipe(viewHolder);
-//    }
-//
 //    //資料初始化
     public void initData(){
-//        ToolList toolWeather = new ToolList(true, "天氣");
-//        ToolList toolAir = new ToolList(false, "空氣品質");
-//        ToolList toolOil = new ToolList(true, "油價");
-//        usinglist.add(toolWeather);
-//        nonList.add(toolAir);
-//        usinglist.add(toolOil);
-//
-//        toollist.add(usinglist);
-//        toollist.add(nonList);
         SharedPreferences spf = getSharedPreferences("tool", MODE_PRIVATE);
         Type collectionType = new TypeToken<ArrayList<ToolList>>() {}.getType();
         usinglist = gson.fromJson(spf.getString("use", ""), collectionType);
@@ -207,8 +185,13 @@ public class SettingActivity extends AppCompatActivity implements ondeleteBtnCli
             nonList.add(setAdapter.usingData.get(position));
 
             String jsonStr = gson.toJson(nonList);
+
             spf.edit().putString("non", jsonStr).commit();
+
             setAdapter.removeItem(position);
+            //usinglist.remove(position);
+            String useStr = gson.toJson(setAdapter.usingData);
+            spf.edit().putString("use", useStr).commit();
 
 
         }

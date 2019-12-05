@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="35"
+                android:text="--"
                 android:textColor="@android:color/black"
                 android:textSize="30sp" />
 
@@ -89,7 +89,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="0"
+                        android:text="--"
                         android:textSize="30sp" />
                 </LinearLayout>
 
@@ -112,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="47"
+                        android:text="--"
                         android:textSize="30sp" />
                 </LinearLayout>
 
@@ -136,7 +136,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="1.5"
+                        android:text="--"
                         android:textSize="30sp" />
                 </LinearLayout>
 
@@ -160,7 +160,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center|center_horizontal"
-                        android:text="3"
+                        android:text="--"
                         android:textSize="30sp" />
                 </LinearLayout>
 
@@ -204,7 +204,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:text="38"
+                    android:text="--"
                     android:textColor="@android:color/black"
                     android:textSize="30sp" />
             </LinearLayout>
@@ -229,7 +229,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:text="30"
+                    android:text="--"
                     android:textColor="@android:color/black"
                     android:textSize="30sp" />
             </LinearLayout>
